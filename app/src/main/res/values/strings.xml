@@ -1,0 +1,8 @@
+ <resources>
+	<string name = "app_name">RoomToDoList</string>
+	<string name = "add_item">Add Item</string>
+	<string name = "err_add_item">Could not add item</string>
+	<string name = "normal">Normal</string>
+	<string name = "important">Important</string>
+	<string name = "very_important">Very Important</string>
+</resources>

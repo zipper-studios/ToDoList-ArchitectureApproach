@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:app = "http://schemas.android.com/apk/res-auto"
+	xmlns:tools = "http://schemas.android.com/tools"
+	tools:context = ".ui.main_activity.MainActivity">
+	
+	<data>
+		
+		<variable
+			name = "viewModel"
+			type = "com.example.kotlinpractice.roomtodolist.ui.main_activity.MainViewModel" />
+	</data>
+	
+	
+	<android.support.constraint.ConstraintLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "match_parent"
+		android:background = "@color/lightGreen">
+		
+		<android.support.v7.widget.RecyclerView
+			android:id = "@+id/am_recycler"
+			android:layout_width = "match_parent"
+			android:layout_height = "match_parent"
+			android:background = "@color/lightGreen"
+			android:paddingBottom = "75dp"
+			app:layoutManager = "android.support.v7.widget.LinearLayoutManager"
+			app:layout_constraintBottom_toTopOf = "@+id/am_fab"
+			app:setAdapter = "@{viewModel.mainAdapter}" />
+		
+		<android.support.design.widget.FloatingActionButton
+			android:id = "@+id/am_fab"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_margin = "16dp"
+			android:onClick = "startAddItemActivity"
+			android:src = "@android:drawable/ic_input_add"
+			android:tint = "@android:color/white"
+			app:layout_constraintBottom_toBottomOf = "parent"
+			app:layout_constraintRight_toRightOf = "parent" />
+	
+	</android.support.constraint.ConstraintLayout>
+</layout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:app = "http://schemas.android.com/apk/res-auto"
+	xmlns:tools = "http://schemas.android.com/tools"
+	tools:context = ".ui.add_item_activity.AddItemActivity">
+	
+	<data>
+		
+		<variable
+			name = "viewModel"
+			type = "com.example.kotlinpractice.roomtodolist.ui.add_item_activity.AddItemViewModel" />
+	</data>
+	
+	<android.support.constraint.ConstraintLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "match_parent"
+		android:background = "@color/colorPrimary">
+		
+		<EditText
+			android:id = "@+id/editText"
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			android:background = "@android:color/white"
+			android:gravity = "top"
+			android:minHeight = "200dp"
+			android:padding = "8dp"
+			android:textSize = "16sp"
+			app:layout_constraintTop_toTopOf = "parent"
+			app:textChangedListener = "@{viewModel.textWatcher}" />
+		
+		<RadioGroup
+			android:id = "@+id/radio_group"
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_marginStart = "8dp"
+			android:layout_marginTop = "8dp"
+			android:checkedButton = "@id/radio_normal"
+			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintTop_toBottomOf = "@id/editText">
+			
+			<RadioButton
+				android:id = "@+id/radio_normal"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:onClick = "@{()->viewModel.onCheckedChanged(@string/normal)}"
+				android:text = "@string/normal" />
+			
+			<RadioButton
+				android:id = "@+id/radio_important"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:onClick = "@{()->viewModel.onCheckedChanged(@string/important)}"
+				android:text = "@string/important" />
+			
+			<RadioButton
+				android:id = "@+id/radio_very_important"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:onClick = "@{()->viewModel.onCheckedChanged(@string/very_important)}"
+				android:text = "@string/very_important" />
+		
+		</RadioGroup>
+		
+		<Button
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_marginTop = "8dp"
+			android:layout_marginEnd = "8dp"
+			android:onClick = "@{()->viewModel.addItem()}"
+			android:text = "@string/add_item"
+			app:layout_constraintRight_toRightOf = "parent"
+			app:layout_constraintTop_toBottomOf = "@+id/editText" />
+	
+	</android.support.constraint.ConstraintLayout>
+</layout>
