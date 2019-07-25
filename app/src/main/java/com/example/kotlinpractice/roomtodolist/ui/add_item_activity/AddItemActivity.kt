@@ -2,13 +2,11 @@ package com.example.kotlinpractice.roomtodolist.ui.add_item_activity
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.widget.Toast
 import com.example.kotlinpractice.roomtodolist.R
 import com.example.kotlinpractice.roomtodolist.databinding.ActivityAddItemBindingImpl
-import com.example.kotlinpractice.roomtodolist.ui.main_activity.MainActivity
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -26,7 +24,7 @@ class AddItemActivity : DaggerAppCompatActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(AddItemViewModel::class.java)
         binding.viewModel = viewModel
 
-        viewModel.itemAdded.observe(this, Observer { itemAdded ->
+        viewModel.taskAdded.observe(this, Observer { itemAdded ->
             itemAdded?.let {
                 if (itemAdded) {
                     finish()

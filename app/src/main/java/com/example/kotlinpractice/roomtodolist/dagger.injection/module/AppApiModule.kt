@@ -2,13 +2,14 @@ package com.example.kotlinpractice.roomtodolist.dagger.injection.module
 
 import com.example.kotlinpractice.roomtodolist.sync.AppApi
 import com.example.kotlinpractice.roomtodolist.utils.Constants
+import com.example.kotlinpractice.roomtodolist.utils.CustomJsonConverterFactory
 import com.example.kotlinpractice.roomtodolist.utils.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -23,9 +24,18 @@ internal class AppApiModule {
 
     @Provides
     @Singleton
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        return interceptor
+    }
+
+    @Provides
+    @Singleton
     @Named("app_okhttp")
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return with(OkHttpClient.Builder()) {
+            addInterceptor(loggingInterceptor)
             connectTimeout(Constants.TIMEOUT_INMILIS, TimeUnit.MILLISECONDS)
             build()
         }
@@ -38,7 +48,8 @@ internal class AppApiModule {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(CustomJsonConverterFactory())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
     }
