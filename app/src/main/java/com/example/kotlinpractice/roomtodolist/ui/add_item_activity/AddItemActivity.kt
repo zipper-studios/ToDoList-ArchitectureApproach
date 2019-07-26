@@ -4,10 +4,11 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import com.example.kotlinpractice.roomtodolist.R
 import com.example.kotlinpractice.roomtodolist.databinding.ActivityAddItemBindingImpl
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.activity_add_item.*
 import javax.inject.Inject
 
 
@@ -29,7 +30,7 @@ class AddItemActivity : DaggerAppCompatActivity() {
                 if (itemAdded) {
                     finish()
                 } else {
-                    Toast.makeText(this, R.string.err_add_item, Toast.LENGTH_SHORT).show()
+                    aia_progress_bar.visibility = View.VISIBLE
                 }
             }
         })

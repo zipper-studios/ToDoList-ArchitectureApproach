@@ -35,6 +35,7 @@ class AddItemViewModel(val repository: Repository, val schedulersFacade: Schedul
     }
 
     fun addItem() {
+        taskAdded.value = false
         val task = Task(toDoText, priority)
 
         disposable = repository.addTask(task)
